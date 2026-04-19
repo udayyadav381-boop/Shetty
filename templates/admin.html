@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Upload</title>
+  <style>
+    body { font-family: Inter, Avenir, Helvetica, Arial, sans-serif; padding: 28px; background:#fafafa; color:#111 }
+    form { max-width:720px; margin-bottom:20px; background:#fff; padding:18px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.06)}
+    label{display:block;margin-bottom:8px;font-weight:600}
+    input,select{width:100%;padding:8px 10px;margin-bottom:12px;border:1px solid #ddd;border-radius:8px}
+    button{padding:10px 14px;border-radius:8px;border:0;background:#06b6d4;color:#fff;font-weight:700}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    img{max-width:100%;height:120px;object-fit:cover;border-radius:8px}
+    .small{font-size:0.9rem;color:#444}
+  </style>
+</head>
+<body>
+  <h1>Admin — Upload Content</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div style="margin-bottom:12px;padding:10px;background:#e6fffa;border:1px solid #bff3ee;border-radius:8px">{{ messages[0] }}</div>
+    {% endif %}
+  {% endwith %}
+
+  <form method="post" enctype="multipart/form-data">
+    <label>Upload image</label>
+    <input type="file" name="image" accept="image/*">
+    <label>Image label (alt text)</label>
+    <input type="text" name="image_label" placeholder="Alt text for image">
+    <label>Add to</label>
+    <select name="add_to">
+      <option value="portfolio">Portfolio</option>
+      <option value="background">Background</option>
+    </select>
+    <div style="display:flex;gap:10px"><button type="submit">Upload Image</button></div>
+  </form>
+
+  <form method="post">
+    <label>Add YouTube video (ID only)</label>
+    <input type="text" name="video_id" placeholder="e.g. pKaev88OVus">
+    <label>Video label</label>
+    <input type="text" name="video_label" placeholder="Showreel 4">
+    <button type="submit">Add Video</button>
+  </form>
+
+  <form method="post">
+    <label>Add contact</label>
+    <input type="text" name="contact_label" placeholder="Label e.g. Agent">
+    <input type="text" name="contact_value" placeholder="Value e.g. phone or email">
+    <button type="submit">Add Contact</button>
+  </form>
+
+  <h2>Current Portfolio</h2>
+  <div class="grid">
+    {% for img in profile.portfolio %}
+      <div>
+        <img src="{{ url_for('static', filename=img.src) }}" alt="{{ img.alt }}">
+        <div class="small">{{ img.alt }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h2 style="margin-top:18px">Current Videos</h2>
+  <ul>
+    {% for v in profile.videos %}
+      <li class="small">{{ v.label }} — <a href="https://youtu.be/{{ v.id }}" target="_blank">https://youtu.be/{{ v.id }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <p style="margin-top:18px"><a href="/">Back to site</a></p>
+</body>
+</html>

@@ -1,0 +1,112 @@
+{
+  "name": "Vijay Viju",
+  "subtitle": "Actor | Theatre Artist",
+  "background_image": "images/vijay.jpg",
+  "basic_info": [
+    {
+      "label": "Age",
+      "value": "34 - 40"
+    },
+    {
+      "label": "Height",
+      "value": "5 ft 7 inches"
+    },
+    {
+      "label": "Weight",
+      "value": "60 kg"
+    },
+    {
+      "label": "Waist",
+      "value": "30"
+    },
+    {
+      "label": "Shoe Size",
+      "value": "7"
+    },
+    {
+      "label": "City",
+      "value": "Mumbai"
+    },
+    {
+      "label": "Nationality",
+      "value": "Indian"
+    },
+    {
+      "label": "Passport",
+      "value": "Yes"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Films",
+      "description": "Traffic Signal, Rahasya, Stone Man, Allah Ke Bandhe, College Campus, Indu Sarkar, Life in Dark, Teen Shayne, India Lockdown, What An Idea Sirji, MBDK, IPC & many more."
+    },
+    {
+      "title": "TVC Ads & TV",
+      "description": "Various projects across brands and regional television productions."
+    }
+  ],
+  "skills": [
+    "Driving",
+    "Acting",
+    "Action"
+  ],
+  "hobbies": [
+    "Reading",
+    "Traveling"
+  ],
+  "languages": [
+    "Hindi",
+    "Marathi",
+    "English",
+    "Gujarati",
+    "Kannada"
+  ],
+  "portfolio": [
+    {
+      "src": "images/work1.jpg",
+      "alt": "Portfolio image 1"
+    },
+    {
+      "src": "images/work2.jpg",
+      "alt": "Portfolio image 2"
+    },
+    {
+      "src": "images/work3.jpg",
+      "alt": "Portfolio image 3"
+    },
+    {
+      "src": "images/work4.jpg",
+      "alt": "Portfolio image 4"
+    }
+  ],
+  "videos": [
+    {"id": "pKaev88OVus", "label": "Showreel 1"},
+    {"id": "agR7TmegcUc", "label": "Showreel 2"},
+    {"id": "LCkfYP2UoCg", "label": "Showreel 3"},
+    {"id": "_yB8eVrs1p8", "label": "Showreel 4"},
+    {"id": "UJuAJ4u4ofA", "label": "Showreel 5"},
+    {"id": "bI8FXuHjD7Y", "label": "Showreel 6"},
+    {"id": "sIWDseAS4uA", "label": "Showreel 7"},
+    {"id": "C02IOyQqidE", "label": "Showreel 8"},
+    {"id": "6MZtJ19qKnA", "label": "Showreel 9"},
+    {"id": "6IM3fPJJCYw", "label": "Showreel 10"},
+    {"id": "ST1tBF10a2I", "label": "Showreel 11"},
+    {"id": "C4MttutkRE0", "label": "Showreel 12"},
+    {"id": "6_QMSajGz-g", "label": "Showreel 13"}
+  ],
+  "contact": [
+    {
+      "label": "Mobile",
+      "value": "9821288527 / 7304542336"
+    },
+    {
+      "label": "Emergency",
+      "value": "9004749001"
+    },
+    {
+      "label": "Email",
+      "value": "viijayshetty@gmail.com"
+    }
+  ]
+}
