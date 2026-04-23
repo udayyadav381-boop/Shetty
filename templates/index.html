@@ -5,11 +5,26 @@
 
 <style>
 body {
-    background: #000;
+    margin: 0;
+    font-family: Arial;
     color: white;
     text-align: center;
-    font-family: Arial;
-    margin: 0;
+
+    /* Background Image */
+    background: url("{{ url_for('static', filename=profile.background_image) }}") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Dark overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: -1;
 }
 
 /* Header */
