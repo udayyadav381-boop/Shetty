@@ -23,7 +23,6 @@ def default_profile():
         "name": "Vijay Viju",
         "subtitle": "Actor | Theatre Artist",
         "background_image": "images/vijay.jpg",
-
         "basic_info": [
             {"label": "Age", "value": "34 - 40"},
             {"label": "Height", "value": "5 ft 7 inches"},
@@ -34,7 +33,6 @@ def default_profile():
             {"label": "Nationality", "value": "Indian"},
             {"label": "Passport", "value": "Yes"},
         ],
-
         "experience": [
             {
                 "title": "Films",
@@ -45,29 +43,22 @@ def default_profile():
                 "description": "Various projects across brands and regional television productions."
             }
         ],
-
         "skills": ["Driving", "Acting", "Action"],
         "hobbies": ["Reading", "Traveling"],
         "languages": ["Hindi", "Marathi", "English", "Gujarati", "Kannada"],
-
-        # ✅ FIXED PORTFOLIO
         "portfolio": [
-            {"src": "images/work1.jpg", "alt": "Portfolio image 1"},
-            {"src": "images/work2.jpg", "alt": "Portfolio image 2"},
-            {"src": "images/work3.jpg", "alt": "Portfolio image 3"},
-            {"src": "images/work4.jpg", "alt": "Portfolio image 4"},
-            {"src": "images/work5.jpeg", "alt": "Portfolio image 5"},
-            {"src": "images/work6.jpeg", "alt": "Portfolio image 6"},
-            {"src": "images/work7.jpeg", "alt": "Portfolio image 7"},
-            {"src": "images/work8.jpeg", "alt": "Portfolio image 8"}
+             {"src": "images/work1.jpeg", "alt": "Portfolio image 1"},
+             {"src": "images/work2.jpeg", "alt": "Portfolio image 2"},
+             {"src": "images/work5.jpeg", "alt": "Portfolio image 5"},
+             {"src": "images/work6.jpeg", "alt": "Portfolio image 6"},
+             {"src": "images/work7.jpeg", "alt": "Portfolio image 7"},
+             {"src": "images/work8.jpeg", "alt": "Portfolio image 8"},
         ],
-
         "videos": [
             {"id": "pKaev88OVus", "label": "Showreel 1"},
             {"id": "agR7TmegcUc", "label": "Showreel 2"},
             {"id": "LCkfYP2UoCg", "label": "Showreel 3"},
         ],
-
         "contact": [
             {"label": "Mobile", "value": "9821288527 / 7304542336"},
             {"label": "Emergency", "value": "9004749001"},
@@ -114,36 +105,24 @@ def admin():
             save_path = Path("static") / "images" / dest_name
             save_path.parent.mkdir(parents=True, exist_ok=True)
             file.save(save_path)
-
             where = request.form.get("add_to") or "portfolio"
             label = request.form.get("image_label") or dest_name
-
             if where == "background":
                 profile["background_image"] = f"images/{dest_name}"
             else:
-                profile.setdefault("portfolio", []).append({
-                    "src": f"images/{dest_name}",
-                    "alt": label
-                })
-
+                profile.setdefault("portfolio", []).append({"src": f"images/{dest_name}", "alt": label})
             save_profile(profile)
 
         video_id = request.form.get("video_id")
         video_label = request.form.get("video_label") or "Showreel"
         if video_id:
-            profile.setdefault("videos", []).append({
-                "id": video_id.strip(),
-                "label": video_label.strip()
-            })
+            profile.setdefault("videos", []).append({"id": video_id.strip(), "label": video_label.strip()})
             save_profile(profile)
 
         contact_label = request.form.get("contact_label")
         contact_value = request.form.get("contact_value")
         if contact_label and contact_value:
-            profile.setdefault("contact", []).append({
-                "label": contact_label.strip(),
-                "value": contact_value.strip()
-            })
+            profile.setdefault("contact", []).append({"label": contact_label.strip(), "value": contact_value.strip()})
             save_profile(profile)
 
         flash("Changes saved")
