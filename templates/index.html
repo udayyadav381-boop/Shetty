@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 <title>Vijay Viju</title>
@@ -34,17 +33,11 @@ iframe {
 
 <h2>Portfolio</h2>
 
-{% for item in items %}
-{% if item.image_url %} <img src="{{ item.image_url }}">
-{% endif %}
-
-```
-{% if item.youtube_link %}
-    <iframe src="{{ item.youtube_link }}"></iframe>
-{% endif %}
-```
-
+<div>
+{% for item in profile.portfolio %}
+    <img src="{{ url_for('static', filename=item.src) }}" alt="{{ item.alt }}">
 {% endfor %}
+</div>
 
 </body>
 </html>
