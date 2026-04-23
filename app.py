@@ -8,6 +8,12 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret")
 
+# 🔥 REDIRECT NON-WWW TO WWW
+@app.before_request
+def redirect_to_www():
+    if request.host == "vijayviju.in":
+        return redirect("https://www.vijayviju.in" + request.full_path)
+
 DATA_DIR = Path("data")
 DATA_DIR.mkdir(exist_ok=True)
 PROFILE_PATH = DATA_DIR / "profile.json"
@@ -41,10 +47,15 @@ def default_profile():
         "hobbies": ["Reading", "Traveling"],
         "languages": ["Hindi", "Marathi", "English", "Gujarati", "Kannada"],
         "portfolio": [
-            {"src": "images/work1.jpg", "alt": "Portfolio image 1"},
-            {"src": "images/work2.jpg", "alt": "Portfolio image 2"},
-            {"src": "images/work3.jpg", "alt": "Portfolio image 3"},
-            {"src": "images/work4.jpg", "alt": "Portfolio image 4"},
+    {"src": "images/work1.jpg", "alt": "Portfolio image 1"},
+    {"src": "images/work2.jpg", "alt": "Portfolio image 2"},
+    {"src": "images/work3.jpg", "alt": "Portfolio image 3"},
+    {"src": "images/work4.jpg", "alt": "Portfolio image 4"},
+    {"src": "images/work5.jpeg", "alt": "Portfolio image 5"},
+    {"src": "images/work6.jpeg", "alt": "Portfolio image 6"},
+    {"src": "images/work7.jpeg", "alt": "Portfolio image 7"},
+    {"src": "images/work8.jpeg", "alt": "Portfolio image 8"},
+]
         ],
         "videos": [
             {"id": "pKaev88OVus", "label": "Showreel 1"},
@@ -77,18 +88,15 @@ def home():
     profile = load_profile()
     return render_template("index.html", profile=profile)
 
-
 ALLOWED_EXT = {"png", "jpg", "jpeg", "gif"}
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXT
 
-
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
     profile = load_profile()
     if request.method == "POST":
-        # Image upload
         file = request.files.get("image")
         if file and file.filename:
             if not allowed_file(file.filename):
@@ -108,14 +116,12 @@ def admin():
                 profile.setdefault("portfolio", []).append({"src": f"images/{dest_name}", "alt": label})
             save_profile(profile)
 
-        # Video add
         video_id = request.form.get("video_id")
         video_label = request.form.get("video_label") or "Showreel"
         if video_id:
             profile.setdefault("videos", []).append({"id": video_id.strip(), "label": video_label.strip()})
             save_profile(profile)
 
-        # Contact add (optional)
         contact_label = request.form.get("contact_label")
         contact_value = request.form.get("contact_value")
         if contact_label and contact_value:
@@ -127,8 +133,6 @@ def admin():
 
     return render_template("admin.html", profile=profile)
 
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5001))
+    port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port, debug=True)
-

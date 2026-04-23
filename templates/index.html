@@ -1,313 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ profile.name }} | Portfolio</title>
-    <style>
-        :root {
-            color-scheme: light;
-            --bg: #ffffff;
-            --surface: transparent;
-            --surface-strong: transparent;
-            --text: #000000;
-            --muted: rgba(0,0,0,0.65);
-            --accent: #7dd3fc;
-            --border: rgba(0, 0, 0, 0.06);
-        }
+<title>Vijay Viju</title>
 
-        * {
-            box-sizing: border-box;
-        }
+<style>
+body {
+    background: black;
+    color: white;
+    text-align: center;
+    font-family: Arial;
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: "Intro Rust", Inter, Avenir, Helvetica, Arial, sans-serif;
-            color: var(--text);
-            font-weight: 700;
-            /* add a semi-opaque overlay over the background image to improve contrast */
-            background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('{{ url_for('static', filename=profile.background_image) }}') center/cover fixed no-repeat;
-        }
+img {
+    width: 220px;
+    margin: 10px;
+    border-radius: 10px;
+}
 
-        /* remove site-wide blend overlay that reduces contrast */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            background: transparent;
-            z-index: 0;
-        }
+iframe {
+    width: 300px;
+    height: 200px;
+    margin: 10px;
+}
+</style>
 
-        .page {
-            width: 100%;
-            max-width: none;
-            margin: 0;
-            padding: 32px clamp(16px, 6vw, 80px) 56px;
-            position: relative;
-            z-index: 1;
-            color: var(--text);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 28px 16px 16px;
-            margin-bottom: 24px;
-            border-radius: 24px;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .hero:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 40px rgba(16,24,40,0.08);
-        }
-
-        .hero h1 {
-            margin: 0;
-            font-size: clamp(3rem, 6vw, 6rem);
-            letter-spacing: -0.03em;
-            color: var(--text);
-            font-weight: 900;
-            text-shadow: none;
-        }
-
-        .hero p {
-            margin: 12px auto 0;
-            max-width: 560px;
-            color: var(--text);
-            font-size: 1rem;
-        }
-
-        .grid {
-            display: grid;
-            gap: 24px;
-        }
-
-        .card {
-            background: transparent;
-            border: none;
-            border-radius: 24px;
-            padding: 28px;
-            box-shadow: none;
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 36px rgba(16,24,40,0.08);
-        }
-
-        .card h2 {
-            margin-top: 0;
-            font-size: 1.35rem;
-            color: var(--text);
-            padding-bottom: 12px;
-            border-left: 4px solid var(--accent);
-            padding-left: 12px;
-            margin-left: -12px;
-        }
-
-        .details dl {
-            display: grid;
-            gap: 12px 20px;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            margin: 0;
-        }
-
-        .details dt {
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .details dd {
-            margin: 0;
-            color: var(--text);
-            font-weight: 700;
-        }
-
-        .pill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .pill-list li {
-            background: rgba(125, 211, 252, 0.08);
-            border: 1px solid rgba(125, 211, 252, 0.12);
-            color: var(--text);
-            border-radius: 999px;
-            padding: 10px 14px;
-            font-size: 0.95rem;
-            font-weight: 700;
-        }
-
-        /* ensure interactive/video link text and labels are visible */
-        .video-grid a,
-        .video-grid a *,
-        .contact p,
-        .card h2,
-        .details dt,
-        .details dd {
-            color: var(--text) !important;
-            text-shadow: none !important;
-        }
-
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
-        }
-
-        .work-grid img {
-            width: 100%;
-            aspect-ratio: 5 / 6;
-            object-fit: cover;
-            border-radius: 20px;
-            border: 1px solid rgba(148, 163, 184, 0.16);
-        }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 18px;
-        }
-
-        .video-grid a {
-            display: block;
-            border-radius: 18px;
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.06);
-            background: rgba(255,255,255,0.02);
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 6px 18px rgba(16,24,40,0.04);
-        }
-
-        .video-grid a:hover {
-            transform: translateY(-6px);
-            border-color: rgba(125, 211, 252, 0.35);
-            box-shadow: 0 14px 30px rgba(16,24,40,0.06);
-        }
-
-        .video-grid img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .contact p {
-            margin: 12px 0;
-            color: var(--text);
-            font-weight: 700;
-        }
-
-        .contact p b {
-            color: var(--text);
-            font-weight: 900;
-        }
-
-        @media (min-width: 880px) {
-            .columns-2 {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 760px) {
-            .page {
-                padding: 24px 16px 40px;
-            }
-        }
-    </style>
 </head>
+
 <body>
-    <main class="page">
-        <section class="hero">
-            <h1>{{ profile.name }}</h1>
-            <p>{{ profile.subtitle }}</p>
-        </section>
 
-        <section class="grid columns-2">
-            <article class="card">
-                <h2>Basic Information</h2>
-                <dl class="details">
-                    {% for item in profile.basic_info %}
-                        <dt>{{ item.label }}</dt>
-                        <dd>{{ item.value }}</dd>
-                    {% endfor %}
-                </dl>
-            </article>
+<h1>Vijay Viju</h1>
+<p>Actor | Theatre Artist</p>
 
-            <article class="card">
-                <h2>Languages</h2>
-                <ul class="pill-list">
-                    {% for language in profile.languages %}
-                        <li>{{ language }}</li>
-                    {% endfor %}
-                </ul>
-            </article>
-        </section>
+<h2>Portfolio</h2>
 
-        <section class="grid">
-            <article class="card">
-                <h2>Experience</h2>
-                {% for item in profile.experience %}
-                    <div style="margin-bottom: 18px;">
-                        <strong>{{ item.title }}</strong>
-                        <p style="margin: 8px 0 0; color: var(--muted);">{{ item.description }}</p>
-                    </div>
-                {% endfor %}
-            </article>
+{% for item in items %}
+{% if item.image_url %} <img src="{{ item.image_url }}">
+{% endif %}
 
-            <article class="card">
-                <h2>Skills & Hobbies</h2>
-                <p style="margin-bottom: 16px; color: var(--muted);"><strong>Skills:</strong></p>
-                <ul class="pill-list">
-                    {% for skill in profile.skills %}
-                        <li>{{ skill }}</li>
-                    {% endfor %}
-                </ul>
+```
+{% if item.youtube_link %}
+    <iframe src="{{ item.youtube_link }}"></iframe>
+{% endif %}
+```
 
-                <p style="margin: 22px 0 16px; color: var(--muted);"><strong>Hobbies:</strong></p>
-                <ul class="pill-list">
-                    {% for hobby in profile.hobbies %}
-                        <li>{{ hobby }}</li>
-                    {% endfor %}
-                </ul>
-            </article>
-        </section>
+{% endfor %}
 
-        <section class="card">
-            <h2>Portfolio</h2>
-            <div class="work-grid">
-                {% for image in profile.portfolio %}
-                    <img src="{{ url_for('static', filename=image.src) }}" alt="{{ image.alt }}">
-                {% endfor %}
-            </div>
-        </section>
-
-        <section class="card">
-            <h2>Showreel</h2>
-            <div class="video-grid">
-                {% for video in profile.videos %}
-                    <a href="https://www.youtube.com/watch?v={{ video.id }}" target="_blank" rel="noopener noreferrer">
-                        <img src="https://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg" alt="{{ video.label }}" loading="lazy" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/{{ video.id }}/sddefault.jpg';">
-                    </a>
-                {% endfor %}
-            </div>
-        </section>
-
-        <section class="card contact">
-            <h2>Contact</h2>
-            {% for item in profile.contact %}
-                <p><b>{{ item.label }}:</b> {{ item.value }}</p>
-            {% endfor %}
-        </section>
-    </main>
 </body>
 </html>
