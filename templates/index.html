@@ -26,13 +26,29 @@ body::before {
     z-index: -1;
 }
 
-/* Headings */
-h1 {
-    font-size: 42px;
-    margin-top: 30px;
-    font-weight: bold;
+/* HERO CENTER */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
+/* TITLE STYLE */
+.hero h1 {
+    font-size: 60px;
+    font-weight: 900;
+    color: #ff2c2c;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* Headings */
 h2 {
     font-size: 28px;
     margin-top: 30px;
@@ -64,12 +80,12 @@ h3 {
     width: 100%;
 }
 
-/* 🔥 FIXED IMAGE ISSUE HERE */
+/* IMAGE FIX */
 .portfolio img {
     width: 100%;
     height: 300px;
     object-fit: cover;
-    object-position: top; /* keeps face visible */
+    object-position: top;
     border-radius: 15px;
 }
 
@@ -92,9 +108,11 @@ h3 {
 
 <body>
 
-<!-- TITLE -->
-<h1>{{ profile.name }}</h1>
-<p><b>{{ profile.subtitle }}</b></p>
+<!-- HERO TITLE -->
+<div class="hero">
+    <h1>{{ profile.name }}</h1>
+    <p><b>{{ profile.subtitle }}</b></p>
+</div>
 
 <!-- EXPERIENCE -->
 <div class="section">
